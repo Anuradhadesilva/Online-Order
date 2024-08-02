@@ -1,4 +1,4 @@
-package com.anuradha.Online.Food.Ordering.config;
+package com.anuradha.Online.Food.Ordering.controller;
 
 import com.anuradha.Online.Food.Ordering.model.User;
 import com.anuradha.Online.Food.Ordering.service.UserService;
