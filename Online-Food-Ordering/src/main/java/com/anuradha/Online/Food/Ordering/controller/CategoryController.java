@@ -20,22 +20,23 @@ public class CategoryController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("/admin/ category")
+    @PostMapping("/admin/category")
     public ResponseEntity<Category> createCategory(@RequestBody Category category,
                                                    @RequestHeader("Authorization") String jwt) throws Exception{
         User user = userService.findUserByJwtToken(jwt);
 
-        Category createdCategory = categoryService.createCategory(category.getName(),category.getId());
+        Category createdCategory = categoryService.createCategory(category.getName(),user.getId());
 
-        return new ResponseEntity<>(createdCategory, HttpStatus.OK);
+        return new ResponseEntity<>(createdCategory, HttpStatus.CREATED);
     }
 
-    @GetMapping("/category/restaurant")
+    @GetMapping("/category/restaurant/{id}")
     public ResponseEntity<List<Category>>  getRestaurantCategory (
+            @PathVariable Long id,
             @RequestHeader("Authorization") String jwt) throws Exception{
         User user = userService.findUserByJwtToken(jwt);
 
-        List<Category>  categories = categoryService.findCategoriesByRestaurantId(user.getId());
+        List<Category> categories = categoryService.findCategoriesByRestaurantId(id);
 
         return new ResponseEntity<>(categories, HttpStatus.OK);
     }
