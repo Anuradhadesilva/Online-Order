@@ -7,9 +7,10 @@ import com.anuradha.Online.Food.Ordering.request.OrderRequest;
 import java.util.List;
 
 public interface OrderService {
-    public Order createOrder(OrderRequest order, User user);
+    public Order createOrder(OrderRequest order, User user) throws Exception;
     public Order updateOrder(Long orderId, String orderStatus) throws Exception;
     public Void cancelOrder(Long orderId) throws Exception;
     public List<Order> getUserOrders(Long userId)throws Exception;
     public List<Order> getRestaurantsOrder(Long restaurantId, String orderStatus)throws Exception;
+    public Order findOrderById(Long orderId)throws Exception;
 }
