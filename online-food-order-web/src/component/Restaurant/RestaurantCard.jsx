@@ -20,7 +20,7 @@ export const RestaurantCard = () => {
                     <p className='font-semibold text-lg'>Indian fast food</p>
                     <p className='text-gray-500 text-sm'>Indulge in life's greatest pleasure: food.</p>
                 </div>
-                <div className='pt- -5'>
+                <div className=''>
                     <IconButton>
                         {true ? <FavoriteIcon /> : <FavoriteBorderIcon />}
                     </IconButton>

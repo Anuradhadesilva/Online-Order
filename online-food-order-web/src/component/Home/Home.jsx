@@ -2,6 +2,8 @@ import React from 'react'
 import "./Home.css"
 import { MultiItemCarousel } from './MultiItemCarousel'
 import { RestaurantCard } from '../Restaurant/RestaurantCard'
+import { Divider } from '@mui/material'
+import { Auth } from '../Auth/Auth'
 
 const restaurant = [1, 1, 1, 1, 1, 1, 1, 1]
 export const Home = () => {
@@ -24,7 +26,7 @@ export const Home = () => {
                 <div className='flex flex-wrap items-center justify-around'>
                     {restaurant.map((item) => <RestaurantCard />)}
                 </div>
-            </section>
+            </section> 
         </div>
     )
 }

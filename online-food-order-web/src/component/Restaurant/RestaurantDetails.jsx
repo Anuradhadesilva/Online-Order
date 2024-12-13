@@ -1,9 +1,30 @@
-import { Grid } from '@mui/material'
+import { Divider, FormControl, FormControlLabel, FormLabel, Grid, Radio, RadioGroup, Typography } from '@mui/material'
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import React from 'react'
+import { useState } from 'react';
+import { MenuCard } from './MenuCard';
 
+const menu = [1, 1, 1, 1, 1, 1]
+const categories = [
+    "pizza",
+    "biriyani",
+    "fried rice",
+    "cake",
+    "pasta"
+]
+
+const foodTypes = [
+    { label: "All", value: 'all' },
+    { label: "Vegetarian", value: "vegetarian" },
+    { label: "Non-Vegetarian", value: 'non_vegetarian' },
+    { label: "Seasonal", value: "seasonal" }
+]
 export const RestaurantDetails = () => {
+    const [foodType, setFoodType] = useState("All")
+    const handleFilter = (e) => {
+        console.log(e.target.value, e.target.name)
+    }
     return (
         <div className='px-5 lg:px-20'>
             <section>
@@ -36,6 +57,46 @@ export const RestaurantDetails = () => {
                     </div>
                 </div>
             </section>
+            <Divider />
+            <section className='pt-[2rem] lg:flex relative'>
+                <div className='space-y-10 lg:w-[20%] filter'>
+                    <div className='box space-y-5 lg:sticky top-28 '>
+                        <div>
+                            <Typography variant='h5'>
+                                Food Type
+                            </Typography>
+                            <FormControl>
+                                <RadioGroup
+                                    onChange={handleFilter}
+                                    value={foodType}
+                                    name="food_type"
+                                >
+                                    {foodTypes.map((item) => <FormControlLabel key={item.value} value={item.value} control={<Radio />} label={item.label} />)}
+                                </RadioGroup>
+                            </FormControl>
+                        </div>
+                        <Divider />
+                        <div>
+                            <Typography variant='h5'>
+                                Food Category
+                            </Typography>
+                            <FormControl>
+                                <RadioGroup
+                                    onChange={handleFilter}
+                                    value={foodType}
+                                    name="food_type"
+                                >
+                                    {categories.map((item) => <FormControlLabel key={item} value={item} control={<Radio />} label={item} />)}
+                                </RadioGroup>
+                            </FormControl>
+                        </div>
+                    </div>
+                </div>
+                <div className='space-y-5 lg:w-[80%] lg:pl-10'>
+                    {menu.map((item) => <MenuCard />)}
+                </div>
+            </section>
+
         </div>
     )
 }
