@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { api, API_URL } from "../../Config/api";
 import {
   CREATE_MENU_ITEM_FAILURE,
@@ -121,3 +122,5 @@ export const deleteFoodAction = ({ foodId, jwt }) => {
     }
   };
 };
+=======
+>>>>>>> parent of 0595187 (state manage of cart)
