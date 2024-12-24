@@ -7,9 +7,8 @@ const initialState = {
   error: null,
 };
 
-const cartReducer = (state = initialState, action) => {
+export const cartReducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.CREATE_MENU_ITEM_REQUEST:
     case actionTypes.FIND_CART_REQUEST:
     case actionTypes.GET_ALL_CART_ITEM_REQUEST:
     case actionTypes.UPDATE_CARTITEM_REQUEST:
@@ -31,7 +30,7 @@ const cartReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        cartItems: state.cartItems.map(() =>
+        cartItems: state.cartItems.map((item) =>
           item.id === action.payload.id ? action.payload : item
         ),
         // cartItems: state.cartItems.map(() =>
@@ -42,7 +41,7 @@ const cartReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        cartItems: state.cartItems.filter(() =>
+        cartItems: state.cartItems.filter((item) =>
           item.id === action.payload.id ? action.payload : item
         ),
       };
