@@ -1,3 +1,4 @@
+import { LOGOUT } from "../Authentication/ActionType";
 import * as actionTypes from "./ActionType";
 
 const initialState = {
@@ -53,5 +54,10 @@ export const cartReducer = (state = initialState, action) => {
         loading: false,
         error: action.payload,
       };
+    case LOGOUT:
+      localStorage.removeItem("jwt");
+      return { ...state, cartItems: [], cart: null, success: "logout success" };
+    default:
+      return state;
   }
 };
