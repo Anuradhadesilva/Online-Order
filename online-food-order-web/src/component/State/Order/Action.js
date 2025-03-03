@@ -13,7 +13,7 @@ export const createOrder = (reqData) => {
     try {
       const { data } = await api.post("api/order", reqData.order, {
         headers: {
-          Authorization: `Bearer${jwt}`,
+          Authorization: `Bearer ${jwt}`,
         },
       });
       if (data.payment_url) window.location.href = data.payment.url;
@@ -30,15 +30,15 @@ export const getUsersOrder = (jwt) => {
   return async (dispatch) => {
     dispatch({ type: GET_USERS_ORDERS_REQUEST });
     try {
-      const {data} = await api.get(`/api/order/user`,{
-        headers:{
-          Authorization:`Bearer ${jwt}`
+      const { data } = await api.get(`/api/order/user`, {
+        headers: {
+          Authorization: `Bearer ${jwt}`
         }
       });
       console.log("User order", data)
-      dispatch({type:GET_USERS_ORDERS_SUCCESS, payload:data})
-    } catch(error) {
-      dispatch({type:GET_USERS_ORDERS_FAILURE, payload:error})
+      dispatch({ type: GET_USERS_ORDERS_SUCCESS, payload: data })
+    } catch (error) {
+      dispatch({ type: GET_USERS_ORDERS_FAILURE, payload: error })
     }
   };
 };

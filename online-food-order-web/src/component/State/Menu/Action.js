@@ -22,7 +22,7 @@ export const createMenuItem = ({ menu, jwt }) => {
     try {
       const { data } = await api.post("api/admin/food", menu, {
         headers: {
-          Authorization: `Bearer${jwt}`,
+          Authorization: `Bearer ${jwt}`,
         },
       });
       console.log("created menu", data);
@@ -42,7 +42,7 @@ export const getMenuItemsByRestaurantId = (reqData) => {
         `api/food/restaurant/${reqData.restaurantId}?vegetarian=${reqData.vegetarian}&nonveg=${reqData.nonveg}&seasonal=${reqData.seasonal}&food_category=${reqData.foodCategory}`,
         {
           headers: {
-            Authorization: `Bearer${reqData.jwt}`,
+            Authorization: `Bearer ${reqData.jwt}`,
           },
         }
       );
@@ -67,7 +67,7 @@ export const searchMenuItem = ({ keyword, jwt }) => {
     try {
       const { data } = await api.get(`api/food/search?name=${keyword}`, {
         headers: {
-          Authorization: `Bearer${jwt}`,
+          Authorization: `Bearer ${jwt}`,
         },
       });
       console.log("search successful ", data);
@@ -88,7 +88,7 @@ export const updateMenuItemAvailability = ({ foodId, jwt }) => {
         {},
         {
           headers: {
-            Authorization: `Bearer${jwt}`,
+            Authorization: `Bearer ${jwt}`,
           },
         }
       );
@@ -110,7 +110,7 @@ export const deleteFoodAction = ({ foodId, jwt }) => {
     try {
       const { data } = await api.delete(`api/admin/food/${foodId}`, {
         headers: {
-          Authorization: `Bearer${jwt}`,
+          Authorization: `Bearer ${jwt}`,
         },
       });
       console.log("delete food", data);

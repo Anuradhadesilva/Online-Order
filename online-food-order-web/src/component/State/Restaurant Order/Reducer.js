@@ -21,8 +21,7 @@ export const restaurantsOrderReducer = (state = initialState, action) => {
             return { ...state, loading: false, orders: updateOrders };
         case GET_RESTAURANTS_ORDER_FAILURE:
         case UPDATE_ORDER_STATUS_FAILURE:
-            return { ...state, loading: false, orders: updateOrders };
-
+            return { ...state, loading: false, error: action.error };
         default:
             return state;
     }

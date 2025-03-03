@@ -1,4 +1,5 @@
 import { type } from "@testing-library/user-event/dist/type"
+import { api } from "../../Config/api"
 import { CREATE_CATEGORY_FAILURE, CREATE_EVENT_FAILURE, CREATE_EVENT_REQUEST, CREATE_EVENT_SUCCESS, CREATE_RESTAURANT_SUCCESS, DELETE_EVENT_FAILURE, DELETE_EVENT_REQUEST, DELETE_EVENT_SUCCESS, DELETE_RESTAURANT_FAILURE, DELETE_RESTAURANT_REQUEST, DELETE_RESTAURANT_SUCCESS, GET_ALL_EVENT_FAILURE, GET_ALL_EVENT_REQUEST, GET_ALL_EVENT_SUCCESS, GET_ALL_RESTAURANT_FAILURE, GET_ALL_RESTAURANT_REQUEST, GET_ALL_RESTAURANT_SUCCESS, GET_RESTAURANT_BY_ID_FAILURE, GET_RESTAURANT_BY_ID_REQUEST, GET_RESTAURANT_BY_ID_SUCCESS, GET_RESTAURANT_BY_USER_ID_FAILURE, GET_RESTAURANT_BY_USER_ID_SUCCESS, GET_RESTAURANTS_CATEGORY_FAILURE, GET_RESTAURANTS_CATEGORY_REQUEST, GET_RESTAURANTS_CATEGORY_SUCCESS, GET_RESTAURANTS_EVENT_FAILURE, GET_RESTAURANTS_EVENT_REQUEST, GET_RESTAURANTS_EVENT_SUCCESS, UPDATE_RESTAURANT_STATUS_FAILURE, UPDATE_RESTAURANT_STATUS_REQUEST, UPDATE_RESTAURANT_STATUS_SUCCESS } from "./ActionType"
 
 export const getAllRestaurantAction = (token) => {
@@ -7,7 +8,7 @@ export const getAllRestaurantAction = (token) => {
         try {
             const { data } = await api.get("/api/restaurants", {
                 headers: {
-                    Authorization: `Bearer${token}`,
+                    Authorization: `Bearer ${token}`,
                 },
             });
             dispatch({ type: GET_ALL_RESTAURANT_SUCCESS, payload: data });
@@ -56,9 +57,8 @@ export const getRestaurantByUserId = (jwt) => {
     }
 }
 
-
 export const createRestaurant = (reqData) => {
-    console.log("token -------", reqData.token)
+    // console.log("token -------", reqData.token)
     return async (dispatch) => {
         dispatch({ type: CREATE_RESTAURANT_SUCCESS });
         try {
@@ -159,7 +159,7 @@ export const createEventAction = ({ data, jwt, restaurantId }) => {
             dispatch({ type: CREATE_EVENT_SUCCESS, payload: res.data });
         } catch (error) {
             console.log("catch - ", error);
-            dispatch({ type: CREATE_EVENT_FAILURE, payload: res.error });
+            dispatch({ type: CREATE_EVENT_FAILURE, payload: error });
         }
     }
 }
@@ -178,7 +178,7 @@ export const getAllEvents = ({ jwt }) => {
             dispatch({ type: GET_ALL_EVENT_SUCCESS, payload: res.data });
         } catch (error) {
             console.log("catch - ", error);
-            dispatch({ type: GET_ALL_EVENT_FAILURE, payload: res.error });
+            dispatch({ type: GET_ALL_EVENT_FAILURE, payload: error });
         }
     }
 }
@@ -197,7 +197,7 @@ export const deleteEventAction = ({ eventId, jwt }) => {
             dispatch({ type: DELETE_EVENT_SUCCESS, payload: eventId });
         } catch (error) {
             console.log("catch - ", error);
-            dispatch({ type: DELETE_EVENT_FAILURE, payload: res.error });
+            dispatch({ type: DELETE_EVENT_FAILURE, payload: error });
         }
     }
 }
@@ -223,7 +223,7 @@ export const getRestaurantsEvents = ({ restaurantId, jwt }) => {
 
 export const createCategoryAction = ({ reqData, jwt }) => {
     return async (dispatch) => {
-        dispatch({ type: CREATE_CATEGORY_REQUEST });
+        dispatch({ type: CREATE_EVENT_REQUEST });
         try {
             const res = await api.post(
                 `api/admin/category`, reqData, {
