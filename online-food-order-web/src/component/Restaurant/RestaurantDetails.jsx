@@ -1,9 +1,13 @@
 import { Divider, FormControl, FormControlLabel, FormLabel, Grid, Radio, RadioGroup, Typography } from '@mui/material'
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react';
 import { MenuCard } from './MenuCard';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { getRestaurantById, getRestaurantByUserId, getRestaurantsCategory } from '../State/Restaurant/Action';
+import { Form } from 'formik';
 
 const menu = [1, 1, 1, 1, 1, 1]
 const categories = [
@@ -20,11 +24,23 @@ const foodTypes = [
     { label: "Non-Vegetarian", value: 'non_vegetarian' },
     { label: "Seasonal", value: "seasonal" }
 ]
-export const RestaurantDetails = () => {
+export const RestaurantDetails = ({ item }) => {
     const [foodType, setFoodType] = useState("All")
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const jwt = localStorage.getItem("jwt")
+    const { auth, restaurant } = useSelector(store => store)
+    const { id, city } = useParams();
     const handleFilter = (e) => {
         console.log(e.target.value, e.target.name)
     }
+
+    useEffect(() => {
+        dispatch(getRestaurantByUserId(jwt))
+        dispatch(getRestaurantsCategory({ jwt, restaurantId: id }))
+    }, [])
+    // console.log(restaurant.usersRestaurant.name)
+
     return (
         <div className='px-5 lg:px-20'>
             <section>
@@ -32,19 +48,19 @@ export const RestaurantDetails = () => {
                 <div>
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
-                            <img src="https://cdn.pixabay.com/photo/2019/09/12/15/21/resort-4471852_1280.jpg" alt="" className='w-full h-[40vh] rounded-t-md object-cover' />
+                            <img src={restaurant.usersRestaurant?.images[0]} alt="" className='w-full h-[40vh] rounded-t-md object-cover' />
                         </Grid>
                         <Grid item xs={12} lg={6}>
-                            <img src="https://cdn.pixabay.com/photo/2022/11/14/10/37/chinese-lanterns-7591296_1280.jpg" alt="" className='w-full h-[40vh] rounded-t-md object-cover' />
+                            <img src={restaurant.usersRestaurant?.images[1]} alt="" className='w-full h-[40vh] rounded-t-md object-cover' />
                         </Grid>
                         <Grid item xs={12} lg={6}>
-                            <img src="https://cdn.pixabay.com/photo/2014/09/17/20/26/restaurant-449952_1280.jpg" alt="" className='w-full h-[40vh] rounded-t-md object-cover' />
+                            <img src={restaurant.usersRestaurant?.images[2]} alt="" className='w-full h-[40vh] rounded-t-md object-cover' />
                         </Grid>
                     </Grid>
                 </div>
                 <div className='pt-3 pb-5'>
-                    <h1 className='text-4xl font-semibold'>Indian fast food</h1>
-                    <p className='text-gray-500 mt-1'>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laudantium non animi voluptas enim expedita tempore deserunt, dolorem necessitatibus ratione placeat. Sapiente veniam veritatis voluptatibus laborum illum assumenda dolor. Suscipit, expedita!</p>
+                    <h1 className='text-4xl font-semibold'>{restaurant.usersRestaurant?.name}</h1>
+                    <p className='text-gray-500 mt-1'>{restaurant.usersRestaurant?.description}</p>
                     <div className='space-y-3 mt-3'>
                         <p className='text-gray-500 flex items-center gap-3'>
                             <LocationOnIcon />
@@ -86,7 +102,8 @@ export const RestaurantDetails = () => {
                                     value={foodType}
                                     name="food_type"
                                 >
-                                    {categories.map((item) => <FormControlLabel key={item} value={item} control={<Radio />} label={item} />)}
+                                    {restaurant.categories?.map((item) => (<FormControlLabel key={item.id} value={item.name} control={<Radio />} label={item.name}
+                                    />))}
                                 </RadioGroup>
                             </FormControl>
                         </div>

@@ -26,7 +26,7 @@ export const getRestaurantById = (reqData) => {
         try {
             const response = await api.get(`/api/restaurants/${reqData.restaurantId}`, {
                 headers: {
-                    Authorization: `Bearer${reqData.jwt}`,
+                    Authorization: `Bearer ${reqData.jwt}`,
                 },
             });
             dispatch({ type: GET_RESTAURANT_BY_ID_SUCCESS, payload: response.data });
@@ -44,7 +44,7 @@ export const getRestaurantByUserId = (jwt) => {
         try {
             const { data } = await api.get(`/api/admin/restaurants/user`, {
                 headers: {
-                    Authorization: `Bearer${jwt}`,
+                    Authorization: `Bearer ${jwt}`,
                 },
             });
             console.log("get restaurant by user id", data)
@@ -245,7 +245,7 @@ export const getRestaurantsCategory = ({ jwt, restaurantId }) => {
         dispatch({ type: GET_RESTAURANTS_CATEGORY_REQUEST });
         try {
             const res = await api.get(
-                `api/admin/events/restaurant /${restaurantId}`, {
+                `api/category/restaurant/${restaurantId}`, {
                 headers: {
                     Authorization: `Bearer ${jwt}`,
                 },

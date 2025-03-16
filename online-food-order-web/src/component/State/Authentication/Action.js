@@ -26,7 +26,8 @@ export const registerUSer = (reqData) => async (dispatch) => {
     );
     if (data.jwt) localStorage.setItem("jwt", data.jwt);
     if (data.role === "ROLE_RESTAURANT_OWNER") {
-      reqData.navigate("/admin/restaurant ");
+      reqData.navigate("/admin/restaurant");
+
     } else {
       reqData.navigate("/");
     }
@@ -35,6 +36,7 @@ export const registerUSer = (reqData) => async (dispatch) => {
   } catch (error) {
     dispatch({ type: REGISTER_FAILURE, payload: error });
     console.log("error", error);
+  
   }
 };
 
@@ -77,25 +79,25 @@ export const getUser = (jwt) => async (dispatch) => {
 
 export const addToFavorite =
   ({ jwt, restaurantId }) =>
-  async (dispatch) => {
-    dispatch({ type: ADD_TO_FAVORITE_REQUEST });
-    try {
-      const { data } = await api.put(
-        `/api/restaurants/${restaurantId}/add-favorites`,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${jwt}`,
-          },
-        }
-      );
-      dispatch({ type: ADD_TO_FAVORITE_SUCCESS, payload: data });
-      console.log("add to favourite success", data);
-    } catch (error) {
-      dispatch({ type: ADD_TO_FAVORITE_FAILURE, payload: error });
-      console.log("error", error);
-    }
-  };
+    async (dispatch) => {
+      dispatch({ type: ADD_TO_FAVORITE_REQUEST });
+      try {
+        const { data } = await api.put(
+          `/api/restaurants/${restaurantId}/add-favorites`,
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${jwt}`,
+            },
+          }
+        );
+        dispatch({ type: ADD_TO_FAVORITE_SUCCESS, payload: data });
+        console.log("add to favourite success", data);
+      } catch (error) {
+        dispatch({ type: ADD_TO_FAVORITE_FAILURE, payload: error });
+        console.log("error", error);
+      }
+    };
 
 export const logout = () => async (dispatch) => {
   dispatch({ type: LOGOUT });

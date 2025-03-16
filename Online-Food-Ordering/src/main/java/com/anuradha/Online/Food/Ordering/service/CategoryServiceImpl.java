@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class CategoryServiceImpl implements CategoryService{
+public class  CategoryServiceImpl implements CategoryService{
 
     @Autowired
     private RestaurantService restaurantService;
@@ -29,7 +29,7 @@ public class CategoryServiceImpl implements CategoryService{
     @Override
     public List<Category> findCategoriesByRestaurantId(Long id) throws Exception {
         Restaurant restaurant = restaurantService.getRestaurantByUserId(id);
-        return categoryRepository.findByRestaurantId(restaurant.getId() );
+        return categoryRepository.findByRestaurantId(restaurant.getId());
     }
 
     @Override
